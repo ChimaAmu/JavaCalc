@@ -11,6 +11,11 @@ public class Calculation {
     static class EnterListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
             try {
+                if (GUI.textField.getText().equals("") &&
+                        !GUI.textFieldResult.getText().equals("")) {
+                    GUI.textField.setText(GUI.textFieldResult.getText());
+                    GUI.textFieldResult.setText("");
+                }
                 stack.push(Double.parseDouble(GUI.textField.getText()));
                 GUI.textField.setText("");
                 GUI.textFieldStack.setText(stack.toString().replace("[", "").replace("]", ""));
