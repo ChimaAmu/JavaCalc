@@ -42,6 +42,7 @@ public class Calculation {
                     case '*' -> operand2 * operand1;
                     case '/' -> operand2 / operand1;
                     case '^' -> Math.pow(operand2, operand1);
+                    case '%' -> (operand2 / 100) * operand1;
                     default -> 0;
                 };
             return result;

@@ -10,8 +10,8 @@ public class GUI {
     private static JFrame frame;
     protected static JTextField textField, textFieldStack, textFieldResult;
     private static JButton[] numButGrid = new JButton[10];
-    private static JButton[] funButGrid = new JButton[10];
-    private JButton butAdd, butSub, butMul, butSqr;
+    private static JButton[] funButGrid = new JButton[11];
+    private JButton butAdd, butSub, butMul, butSqr, butPcnt;
     private JButton butDiv, butPer, butClr, butClrAll, butEql, butDel;
     private static JPanel panel, panelText, panelButtons;
 
@@ -67,34 +67,38 @@ public class GUI {
         butPer = new JButton(".");
         butEql = new JButton("Enter");
         butDel = new JButton("Del");
+        butPcnt = new JButton("%");
 
         funButGrid[0] = butAdd;
         funButGrid[1] = butSub;
         funButGrid[2] = butDiv;
         funButGrid[3] = butMul;
         funButGrid[4] = butSqr;
-        funButGrid[5] = butPer;
-        funButGrid[6] = butDel;
-        funButGrid[7] = butClr;
-        funButGrid[8] = butClrAll;
-        funButGrid[9] = butEql;
+        funButGrid[5] = butPcnt;
+        funButGrid[6] = butPer;
+        funButGrid[7] = butDel;
+        funButGrid[8] = butClr;
+        funButGrid[9] = butClrAll;
+        funButGrid[10] = butEql;
 
         funButGrid[0].addActionListener(funListener);
         funButGrid[1].addActionListener(funListener);
         funButGrid[2].addActionListener(funListener);
         funButGrid[3].addActionListener(funListener);
         funButGrid[4].addActionListener(funListener);
-        funButGrid[5].addActionListener(numListener);
-        funButGrid[6].addActionListener(delListener);
-        funButGrid[7].addActionListener(clrListener);
-        funButGrid[8].addActionListener(clrAllListener);
-        funButGrid[9].addActionListener(eqlListener);
+        funButGrid[5].addActionListener(funListener);
+        funButGrid[6].addActionListener(numListener);
+        funButGrid[7].addActionListener(delListener);
+        funButGrid[8].addActionListener(clrListener);
+        funButGrid[9].addActionListener(clrAllListener);
+        funButGrid[10].addActionListener(eqlListener);
 
         panelButtons.add(butAdd);
         panelButtons.add(butSub);
         panelButtons.add(butMul);
         panelButtons.add(butSqr);
         panelButtons.add(butDiv);
+        panelButtons.add(butPcnt);
         panelButtons.add(butDel);
         panelButtons.add(butClr);
         panelButtons.add(butClrAll);
