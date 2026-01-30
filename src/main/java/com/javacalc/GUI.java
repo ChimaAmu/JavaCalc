@@ -25,7 +25,7 @@ public class GUI {
 
     public GUI() {
         frame = new JFrame("Calculator");
-        frame.setSize(260,250);
+        frame.setSize(330,250);
 
         panel = new JPanel();
         panel.setLayout(new FlowLayout());
@@ -58,6 +58,9 @@ public class GUI {
         }
 
         butAdd = new JButton("+");
+        butAdd.setMnemonic(KeyEvent.VK_PLUS);
+//        butAdd.getInputMap().put(KeyStroke.getKeyStroke("0"), "0");
+//        butAdd.getActionMap().put("0", numListener);
         butSub = new JButton("-");
         butDiv = new JButton("/");
         butMul = new JButton("*");
@@ -70,6 +73,7 @@ public class GUI {
         butPcnt = new JButton("%");
 
         funButGrid[0] = butAdd;
+        numButGrid[0].setMnemonic(KeyEvent.VK_NUMPAD0);
         funButGrid[1] = butSub;
         funButGrid[2] = butDiv;
         funButGrid[3] = butMul;
