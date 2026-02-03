@@ -8,20 +8,20 @@ import java.awt.*;
 public class GUI {
 
     private static JFrame frame;
+    private static JPanel panel, panelText, panelButtons;
     protected static JTextField textField, textFieldStack, textFieldResult;
+
     private static JButton[] numButGrid = new JButton[10];
     private static JButton[] funButGrid = new JButton[11];
     private JButton butAdd, butSub, butMul, butSqr, butPcnt;
     private JButton butDiv, butPer, butClr, butClrAll, butEql, butDel;
-    private static JPanel panel, panelText, panelButtons;
 
-    private static Calculation.EnterListener eqlListener = new Calculation.EnterListener();
-    private static Calculation.FunctionListener funListener = new Calculation.FunctionListener();
-    private static NumberListener numListener = new NumberListener();
-    private static ClearListener clrListener = new ClearListener();
-    private static ClearAllListener clrAllListener = new ClearAllListener();
-    private static DeleteListener delListener = new DeleteListener();
+    private static Calculation.EnterListener eqlListener =
+        new Calculation.EnterListener();
+    private static Calculation.FunctionListener funListener =
+        new Calculation.FunctionListener();
 
+    private static ButtonListener buttonListener = new ButtonListener();
 
     public GUI() {
         frame = new JFrame("Calculator");
@@ -53,14 +53,13 @@ public class GUI {
 
         for (int i = 0; i <= 9; i++) {
             numButGrid[i] = new JButton(Integer.toString(i));
-            numButGrid[i].addActionListener(numListener);
+            numButGrid[i].addActionListener(buttonListener);
             panelButtons.add(numButGrid[i]);
         }
 
+
         butAdd = new JButton("+");
         butAdd.setMnemonic(KeyEvent.VK_PLUS);
-//        butAdd.getInputMap().put(KeyStroke.getKeyStroke("0"), "0");
-//        butAdd.getActionMap().put("0", numListener);
         butSub = new JButton("-");
         butDiv = new JButton("/");
         butMul = new JButton("*");
@@ -72,30 +71,29 @@ public class GUI {
         butDel = new JButton("Del");
         butPcnt = new JButton("%");
 
+
+        // Functions
         funButGrid[0] = butAdd;
-        numButGrid[0].setMnemonic(KeyEvent.VK_NUMPAD0);
         funButGrid[1] = butSub;
         funButGrid[2] = butDiv;
         funButGrid[3] = butMul;
         funButGrid[4] = butSqr;
         funButGrid[5] = butPcnt;
+        for (int i = 0; i <= 5; i++)
+            funButGrid[i].addActionListener(funListener);
+
+        // Buttons
         funButGrid[6] = butPer;
         funButGrid[7] = butDel;
         funButGrid[8] = butClr;
         funButGrid[9] = butClrAll;
-        funButGrid[10] = butEql;
+        // Enter
+        for (int i = 6; i <= 9; i++)
+            funButGrid[i].addActionListener(buttonListener);
 
-        funButGrid[0].addActionListener(funListener);
-        funButGrid[1].addActionListener(funListener);
-        funButGrid[2].addActionListener(funListener);
-        funButGrid[3].addActionListener(funListener);
-        funButGrid[4].addActionListener(funListener);
-        funButGrid[5].addActionListener(funListener);
-        funButGrid[6].addActionListener(numListener);
-        funButGrid[7].addActionListener(delListener);
-        funButGrid[8].addActionListener(clrListener);
-        funButGrid[9].addActionListener(clrAllListener);
+        funButGrid[10] = butEql;
         funButGrid[10].addActionListener(eqlListener);
+
 
         panelButtons.add(butAdd);
         panelButtons.add(butSub);
@@ -113,6 +111,7 @@ public class GUI {
 
         frame.add(panel);
 
+        frame.setFocusable(true);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -121,34 +120,39 @@ public class GUI {
         new GUI();
     }
 
-    static class NumberListener implements ActionListener {
+    static class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-            String num = evt.getActionCommand();
-                textField.setText(GUI.textField.getText().concat(num));
+            String actCom = evt.getActionCommand();
+
+            switch (actCom) {
+                case "C" :
+                    System.out.println("C TEST");
+                    textField.setText("");
+                    break;
+                case "CE" :
+                    System.out.println("CE TEST");
+                    textField.setText("");
+                    textFieldStack.setText("");
+                    textFieldResult.setText("");
+                    Calculation.stack.clear();
+                    break;
+                case "Del" :
+                    System.out.println("DEL TEST");
+                    if (!textField.getText().equalsIgnoreCase(""))
+                        textField.setText(
+                                textField.getText()
+                                .substring(0, textField.getText().length() -1));
+                    else
+                        textField.setText("");
+                    break;
+                default : 
+                    if (actCom.matches("[0-9]")) {
+                        System.out.println("NUM TEST");
+                        textField.setText(GUI.textField.getText().concat(actCom));
+                    }
+                    break;
+            }
         }
     }
 
-    static class ClearListener implements ActionListener {
-        public void actionPerformed(ActionEvent evt) {
-            textField.setText("");
-        }
-    }
-
-    static class ClearAllListener implements ActionListener {
-        public void actionPerformed(ActionEvent evt) {
-            textField.setText("");
-            textFieldStack.setText("");
-            textFieldResult.setText("");
-            Calculation.stack.clear();
-        }
-    }
-
-    static class DeleteListener implements ActionListener {
-        public void actionPerformed(ActionEvent evt) {
-            if (!textField.getText().equalsIgnoreCase(""))
-                textField.setText(textField.getText().substring(0, textField.getText().length() -1));
-            else
-                textField.setText("");
-        }
-    }
 }
