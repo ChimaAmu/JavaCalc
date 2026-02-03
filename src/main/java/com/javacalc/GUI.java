@@ -87,10 +87,10 @@ public class GUI {
         funButGrid[7] = butDel;
         funButGrid[8] = butClr;
         funButGrid[9] = butClrAll;
-        // Enter
         for (int i = 6; i <= 9; i++)
             funButGrid[i].addActionListener(buttonListener);
 
+        // Enter
         funButGrid[10] = butEql;
         funButGrid[10].addActionListener(eqlListener);
 
@@ -126,18 +126,15 @@ public class GUI {
 
             switch (actCom) {
                 case "C" :
-                    System.out.println("C TEST");
                     textField.setText("");
                     break;
                 case "CE" :
-                    System.out.println("CE TEST");
                     textField.setText("");
                     textFieldStack.setText("");
                     textFieldResult.setText("");
                     Calculation.stack.clear();
                     break;
                 case "Del" :
-                    System.out.println("DEL TEST");
                     if (!textField.getText().equalsIgnoreCase(""))
                         textField.setText(
                                 textField.getText()
@@ -147,7 +144,6 @@ public class GUI {
                     break;
                 default : 
                     if (actCom.matches("[0-9]")) {
-                        System.out.println("NUM TEST");
                         textField.setText(GUI.textField.getText().concat(actCom));
                     }
                     break;
