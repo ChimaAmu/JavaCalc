@@ -113,11 +113,11 @@ public class GUI {
         panelButtons.add(butMul);
         for (int i = 1; i <= 3; i++)
             panelButtons.add(numButGrid[i]);
-        panelButtons.add(butSqr);
-        panelButtons.add(numButGrid[0]);
         panelButtons.add(butDiv);
-        panelButtons.add(butPcnt);
+        panelButtons.add(numButGrid[0]);
         panelButtons.add(butPer);
+        panelButtons.add(butSqr);
+        panelButtons.add(butPcnt);
 
         // Construct panel
         panel.add(panelText);
