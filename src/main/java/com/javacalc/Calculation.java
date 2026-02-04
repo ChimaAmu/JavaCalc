@@ -9,16 +9,26 @@ public class Calculation {
     protected static Stack<Double> stack = new Stack<>();
 
     static class EnterListener implements ActionListener {
+        /** Action event for when the enter button is pressed.
+         * Adds the current text field to the stack and operates on it,
+         * or, if the default text field is empty but the result stack has,
+         * a value, the result stack is pushed to the current stack.
+         * Otherwise, an exception is thrown.
+         * @param evt The given action event
+         * @throws EmptyStackException if an operation is tried on an empty stack
+         */
         public void actionPerformed(ActionEvent evt) {
             try {
                 if (GUI.textField.getText().equals("") &&
-                        !GUI.textFieldResult.getText().equals("")) {
-                    GUI.textField.setText(GUI.textFieldResult.getText());
-                    GUI.textFieldResult.setText("");
+                        !GUI.textFieldBottom.getText().equals("")) {
+                    GUI.textField.setText(GUI.textFieldBottom.getText());
+                    GUI.textFieldBottom.setText("");
+                } else {
+                    stack.push(Double.parseDouble(GUI.textField.getText()));
+                    GUI.textField.setText("");
+                    GUI.textFieldTop.setText(
+                            stack.toString().replace("[", "").replace("]", ""));
                 }
-                stack.push(Double.parseDouble(GUI.textField.getText()));
-                GUI.textField.setText("");
-                GUI.textFieldStack.setText(stack.toString().replace("[", "").replace("]", ""));
             } catch (NumberFormatException ex) {
                 System.err.println(ex + ": Text field is empty");
             }
@@ -52,8 +62,8 @@ public class Calculation {
          * Adds the current text field to the stack and operates on it,
          * or, if the text field is empty but the stack has operands in it,
          * pops the top element off the stack and operates on it.
-         * @param evt Character of the given operator
-         * @throws EmptyStackException if operation is tried on an empty stack
+         * @param evt The given action event
+         * @throws EmptyStackException if an operation is tried on an empty stack
          */
         public void actionPerformed(ActionEvent evt) {
             char operator = evt.getActionCommand().charAt(0);
@@ -61,17 +71,17 @@ public class Calculation {
                 if (GUI.textField.getText().equalsIgnoreCase("")) {
                     double result = stack.pop();
                     GUI.textField.setText(Double.toString(result));
-                    GUI.textFieldResult.setText(Double.toString(result));
-                    GUI.textFieldStack.setText(stack.toString().replace("[", "").replace("]", ""));
-                    if (stack.empty()) GUI.textFieldStack.setText("");
+                    GUI.textFieldBottom.setText(Double.toString(result));
+                    GUI.textFieldTop.setText(stack.toString().replace("[", "").replace("]", ""));
+                    if (stack.empty()) GUI.textFieldTop.setText("");
                 }
                 else {
                     stack.push(Double.parseDouble(GUI.textField.getText()));
                     double result = eval(operator);
                     GUI.textField.setText(Double.toString(result));
-                    GUI.textFieldResult.setText(Double.toString(result));
-                    GUI.textFieldStack.setText(stack.toString().replace("[", "").replace("]", ""));
-                    if (stack.empty()) GUI.textFieldStack.setText("");
+                    GUI.textFieldBottom.setText(Double.toString(result));
+                    GUI.textFieldTop.setText(stack.toString().replace("[", "").replace("]", ""));
+                    if (stack.empty()) GUI.textFieldTop.setText("");
                 }
             } catch (EmptyStackException ex) {
                 System.err.println(ex + ": Stack is empty");

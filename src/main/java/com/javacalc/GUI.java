@@ -7,44 +7,51 @@ import java.awt.*;
 /** Class to display Calculator GUI. **/
 public class GUI {
 
+    /** Components to hold GUI elements. */
     private static JFrame frame;
     private static JPanel panel, panelText, panelButtons;
-    protected static JTextField textField, textFieldStack, textFieldResult;
+    protected static JTextField textField, textFieldTop, textFieldBottom;
 
+    /** Arrays for storing GUI elements. */
+    // Array to store the numbers 0-9
     private static JButton[] numButGrid = new JButton[10];
+    // Array to store the calculator functions
     private static JButton[] funButGrid = new JButton[11];
     private JButton butAdd, butSub, butMul, butSqr, butPcnt;
     private JButton butDiv, butPer, butClr, butClrAll, butEnt, butDel;
 
+    /** Action listeners for calculator operations. */
     private static Calculation.EnterListener entListener =
         new Calculation.EnterListener();
     private static Calculation.FunctionListener funListener =
         new Calculation.FunctionListener();
-
     private static ButtonListener buttonListener = new ButtonListener();
 
+    /** Graphical user interface constructor. */
     public GUI() {
-        // Create panel
+        // Create main panel
         panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
+        // Create text panel
         panelText = new JPanel();
         panelText.setLayout(new BoxLayout(panelText, BoxLayout.Y_AXIS));
 
+        // Create button panel
         panelButtons = new JPanel();
         panelButtons.setLayout(new GridLayout(6, 4));
 
         // Create text fields
-        textFieldStack = new JTextField(20);
-        textFieldStack.setEditable(false);
-        textFieldStack.setFocusable(false);
+        textFieldTop = new JTextField(20);
+        textFieldTop.setEditable(false);
+        textFieldTop.setFocusable(false);
 
         textField = new JTextField(20);
         textField.setEditable(false);
 
-        textFieldResult = new JTextField(20);
-        textFieldResult.setEditable(false);
-        textFieldResult.setFocusable(false);
+        textFieldBottom = new JTextField(20);
+        textFieldBottom.setEditable(false);
+        textFieldBottom.setFocusable(false);
 
         // Assign each number to a space in the number button grid array
         for (int i = 0; i <= 9; i++) {
@@ -89,9 +96,9 @@ public class GUI {
 
         // Build GUI
         // Add text fields
-        panelText.add(textFieldStack);
+        panelText.add(textFieldTop);
         panelText.add(textField);
-        panelText.add(textFieldResult);
+        panelText.add(textFieldBottom);
 
         // Add buttons
         panelButtons.add(butClr);
@@ -134,6 +141,13 @@ public class GUI {
     }
 
     static class ButtonListener implements ActionListener {
+        /** Action event for when any non-operation button is pressed.
+         * C   clears the default text field, but leaves all others and the stack alone.
+         * CE  clears all text fields, and clears the stack.
+         * Del deletes one character from the default text field.
+         * 0-9 (any single digit) will append the digit to the default text field
+         * @param evt The given action event
+         */
         public void actionPerformed(ActionEvent evt) {
             String actCom = evt.getActionCommand();
 
@@ -143,8 +157,8 @@ public class GUI {
                     break;
                 case "CE" :
                     textField.setText("");
-                    textFieldStack.setText("");
-                    textFieldResult.setText("");
+                    textFieldTop.setText("");
+                    textFieldBottom.setText("");
                     Calculation.stack.clear();
                     break;
                 case "Del" :
