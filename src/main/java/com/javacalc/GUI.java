@@ -14,9 +14,9 @@ public class GUI {
     private static JButton[] numButGrid = new JButton[10];
     private static JButton[] funButGrid = new JButton[11];
     private JButton butAdd, butSub, butMul, butSqr, butPcnt;
-    private JButton butDiv, butPer, butClr, butClrAll, butEql, butDel;
+    private JButton butDiv, butPer, butClr, butClrAll, butEnt, butDel;
 
-    private static Calculation.EnterListener eqlListener =
+    private static Calculation.EnterListener entListener =
         new Calculation.EnterListener();
     private static Calculation.FunctionListener funListener =
         new Calculation.FunctionListener();
@@ -24,9 +24,7 @@ public class GUI {
     private static ButtonListener buttonListener = new ButtonListener();
 
     public GUI() {
-        frame = new JFrame("Calculator");
-        frame.setSize(330,250);
-
+        // Create panel
         panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
@@ -34,32 +32,28 @@ public class GUI {
         panelText.setLayout(new BoxLayout(panelText, BoxLayout.Y_AXIS));
 
         panelButtons = new JPanel();
-        panelButtons.setLayout(new GridLayout(5, 3));
+        panelButtons.setLayout(new GridLayout(6, 4));
 
+        // Create text fields
         textFieldStack = new JTextField(20);
         textFieldStack.setEditable(false);
         textFieldStack.setFocusable(false);
-        panelText.add(textFieldStack);
 
         textField = new JTextField(20);
         textField.setEditable(false);
-        panelText.add(textField);
 
         textFieldResult = new JTextField(20);
         textFieldResult.setEditable(false);
         textFieldResult.setFocusable(false);
-        panelText.add(textFieldResult);
-        panel.add(panelText);
 
+        // Assign each number to a space in the number button grid array
         for (int i = 0; i <= 9; i++) {
             numButGrid[i] = new JButton(Integer.toString(i));
             numButGrid[i].addActionListener(buttonListener);
-            panelButtons.add(numButGrid[i]);
         }
 
-
+        // Create buttons for each function operation
         butAdd = new JButton("+");
-        butAdd.setMnemonic(KeyEvent.VK_PLUS);
         butSub = new JButton("-");
         butDiv = new JButton("/");
         butMul = new JButton("*");
@@ -67,12 +61,11 @@ public class GUI {
         butClr = new JButton("C");
         butClrAll = new JButton("CE");
         butPer = new JButton(".");
-        butEql = new JButton("Enter");
+        butEnt = new JButton("Enter");
         butDel = new JButton("Del");
         butPcnt = new JButton("%");
 
-
-        // Functions
+        // Operations
         funButGrid[0] = butAdd;
         funButGrid[1] = butSub;
         funButGrid[2] = butDiv;
@@ -82,7 +75,7 @@ public class GUI {
         for (int i = 0; i <= 5; i++)
             funButGrid[i].addActionListener(funListener);
 
-        // Buttons
+        // Modifiers
         funButGrid[6] = butPer;
         funButGrid[7] = butDel;
         funButGrid[8] = butClr;
@@ -91,23 +84,43 @@ public class GUI {
             funButGrid[i].addActionListener(buttonListener);
 
         // Enter
-        funButGrid[10] = butEql;
-        funButGrid[10].addActionListener(eqlListener);
+        funButGrid[10] = butEnt;
+        funButGrid[10].addActionListener(entListener);
 
+        // Build GUI
+        // Add text fields
+        panelText.add(textFieldStack);
+        panelText.add(textField);
+        panelText.add(textFieldResult);
 
-        panelButtons.add(butAdd);
-        panelButtons.add(butSub);
-        panelButtons.add(butMul);
-        panelButtons.add(butSqr);
-        panelButtons.add(butDiv);
-        panelButtons.add(butPcnt);
-        panelButtons.add(butDel);
+        // Add buttons
         panelButtons.add(butClr);
         panelButtons.add(butClrAll);
+        panelButtons.add(butDel);
+        panelButtons.add(butAdd);
+        for (int i = 7; i <= 9; i++)
+            panelButtons.add(numButGrid[i]);
+        panelButtons.add(butSub);
+        for (int i = 4; i <= 6; i++)
+            panelButtons.add(numButGrid[i]);
+        panelButtons.add(butMul);
+        for (int i = 1; i <= 3; i++)
+            panelButtons.add(numButGrid[i]);
+        panelButtons.add(butSqr);
+        panelButtons.add(numButGrid[0]);
+        panelButtons.add(butDiv);
+        panelButtons.add(butPcnt);
         panelButtons.add(butPer);
-        panelButtons.add(butEql);
+
+        // Construct panel
+        panel.add(panelText);
 
         panel.add(panelButtons);
+        panel.add(butEnt);
+
+        // Construct frame
+        frame = new JFrame("Calculator");
+        frame.setSize(230,315);
 
         frame.add(panel);
 
