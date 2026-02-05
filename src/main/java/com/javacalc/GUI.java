@@ -146,6 +146,7 @@ public class GUI {
          * CE  clears all text fields, and clears the stack.
          * Del deletes one character from the default text field.
          * 0-9 (any single digit) will append the digit to the default text field
+         * .   will append a period to the default text field if not already present
          * @param evt The given action event
          */
         public void actionPerformed(ActionEvent evt) {
@@ -171,8 +172,13 @@ public class GUI {
                         textField.setText("");
                     break;
                 default : 
-                    if (actCom.matches("[0-9]")) {
+                    if (actCom.matches("[0-9]")) 
                         textField.setText(GUI.textField.getText().concat(actCom));
+                    else if (actCom.matches("[\\.]")) {
+                        boolean periodPresent =
+                            textField.getText().contains(Character.toString('.'));
+                        if (!periodPresent)
+                            textField.setText(textField.getText().concat(actCom));
                     }
                     break;
             }

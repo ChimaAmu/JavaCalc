@@ -30,7 +30,7 @@ public class Calculation {
                             stack.toString().replace("[", "").replace("]", ""));
                 }
             } catch (NumberFormatException ex) {
-                System.err.println(ex + ": Text field is empty");
+                System.err.println("Error in text field : " + ex);
             }
         }
     }
