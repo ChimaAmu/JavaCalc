@@ -153,6 +153,7 @@ public class GUI {
 
             switch (actCom) {
                 case "C" :
+                    textFieldBottom.setText(textField.getText());
                     textField.setText("");
                     break;
                 case "CE" :

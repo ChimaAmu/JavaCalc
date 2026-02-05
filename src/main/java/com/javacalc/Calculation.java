@@ -67,20 +67,20 @@ public class Calculation {
          */
         public void actionPerformed(ActionEvent evt) {
             char operator = evt.getActionCommand().charAt(0);
+            boolean textFieldEmpty = GUI.textField.getText().equalsIgnoreCase("");
+            String stackContents = stack.toString().replace("[", "").replace("]", "");
             try {
-                if (GUI.textField.getText().equalsIgnoreCase("")) {
+                if (textFieldEmpty) {
                     double result = stack.pop();
                     GUI.textField.setText(Double.toString(result));
-                    GUI.textFieldBottom.setText(Double.toString(result));
-                    GUI.textFieldTop.setText(stack.toString().replace("[", "").replace("]", ""));
+                    GUI.textFieldTop.setText(stackContents);
                     if (stack.empty()) GUI.textFieldTop.setText("");
                 }
                 else {
                     stack.push(Double.parseDouble(GUI.textField.getText()));
                     double result = eval(operator);
                     GUI.textField.setText(Double.toString(result));
-                    GUI.textFieldBottom.setText(Double.toString(result));
-                    GUI.textFieldTop.setText(stack.toString().replace("[", "").replace("]", ""));
+                    GUI.textFieldTop.setText(stackContents);
                     if (stack.empty()) GUI.textFieldTop.setText("");
                 }
             } catch (EmptyStackException ex) {
