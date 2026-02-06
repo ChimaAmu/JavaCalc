@@ -17,6 +17,7 @@ public class GUI {
     private static JButton[] numButGrid = new JButton[10];
     // Array to store the calculator functions
     private static JButton[] funButGrid = new JButton[11];
+    // Function buttons
     private JButton butAdd, butSub, butMul, butSqr, butPcnt;
     private JButton butDiv, butPer, butClr, butClrAll, butEnt, butDel;
 
@@ -42,13 +43,16 @@ public class GUI {
         panelButtons.setLayout(new GridLayout(6, 4));
 
         // Create text fields
+        // Text field for stack contents
         textFieldTop = new JTextField(20);
         textFieldTop.setEditable(false);
         textFieldTop.setFocusable(false);
 
+        // Text field for user inputs
         textField = new JTextField(20);
         textField.setEditable(false);
 
+        // Text field to store inputs/results for later
         textFieldBottom = new JTextField(20);
         textFieldBottom.setEditable(false);
         textFieldBottom.setFocusable(false);
@@ -105,14 +109,20 @@ public class GUI {
         panelButtons.add(butClrAll);
         panelButtons.add(butDel);
         panelButtons.add(butAdd);
+
         for (int i = 7; i <= 9; i++)
             panelButtons.add(numButGrid[i]);
+
         panelButtons.add(butSub);
+
         for (int i = 4; i <= 6; i++)
             panelButtons.add(numButGrid[i]);
+
         panelButtons.add(butMul);
+
         for (int i = 1; i <= 3; i++)
             panelButtons.add(numButGrid[i]);
+
         panelButtons.add(butDiv);
         panelButtons.add(numButGrid[0]);
         panelButtons.add(butPer);
