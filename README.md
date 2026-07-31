@@ -8,6 +8,10 @@ Also known as postfix notation, reverse Polish notation is a mathematical notati
 
 The benefit of this over regular (infix) notation is that parentheses are not needed, and when you get used to it it's actually quite a bit faster!
 
+Here's an example of it in action:
+[CalculatorShowcase.webm](https://github.com/user-attachments/assets/9296503e-833b-4ef8-908d-a4c4b5cc3112)
+
+
 ## How do I run this?
 To run, clone the repo input the following in the command line:
 * ```javac GUI```
